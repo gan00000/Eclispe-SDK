@@ -1,0 +1,129 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.starpy.qmah.tw"
+    android:versionCode="1"
+    android:versionName="1.0" >
+    <uses-sdk
+        android:minSdkVersion="18"
+        android:targetSdkVersion="22" />
+    
+    <!-- 添加以下配置 -->
+    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    !-- VERY IMPORTANT! Don't forget this permission, or in-app billing won't work. -->
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.NETWORK"
+        android:required="false" />
+    
+
+   <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+
+            android:name="com.starpy.sdk.demo.MainActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|fontScale"
+            android:screenOrientation="sensorLandscape"
+            
+            android:windowSoftInputMode="stateHidden|adjustPan">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+			<!-- 添加以下代碼 -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/star_game_code"
+                    android:scheme="@string/star_android_scheme" />
+            </intent-filter>
+
+        </activity>
+        
+        <!-- 添加以下配置 -->
+         <activity
+            android:name="com.starpy.sdk.login.SLoginActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|fontScale"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
+        <activity
+            android:name="com.starpy.sdk.SWebViewActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|fontScale"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
+        <activity
+            android:name="com.starpy.pay.gp.GooglePayActivity2"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|fontScale"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
+
+        <!-- ==========================共同需要的配置============================ -->
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+
+        <!-- =======================4.x要配置=============================== -->
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|fontScale"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationName"
+            android:value="@string/facebook_app_name" />
+
+        <!--如果要通过 Android 版 Facebook 应用分享链接、图片或视频，还需要在清单文件中声明 FacebookContentProvider-->
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="@string/facebook_authorities"
+            android:exported="true" />
+		
+		<!--The AppsFlyer Install Receiver is first and will broadcast to all receivers placed below it-->
+        <receiver android:name="com.appsflyer.MultipleInstallBroadcastReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.google.ads.conversiontracking.InstallReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+        
+        
+    </application>
+
+</manifest>
